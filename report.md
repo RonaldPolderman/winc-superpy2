@@ -1,6 +1,6 @@
 SuperPy Report.
 
-The 2nd commit for another very challenging assigment, I had a hard time understanding what exactly was asked in the assignment and then figuring out how the required modules like date, argparse and csv files worked.
+The 3rd commit for another very challenging assigment, I had a hard time understanding what exactly was asked in the assignment and then figuring out how the required modules like date, argparse and csv files worked.
 After a lot of Google reading and going through all the docs at docs.python i had a minor grasp of understanding what to do.
 
 Added the report.md this time since i did not add one in the 1st commit.
