@@ -1,0 +1,64 @@
+
+The SuperPy is a commandline tool that will help you keep track of your inventory.
+You can:
+
+- buy products
+- sell products
+- get the inventory at specified dates
+- either the profit or revenue on a specific day or month
+- get a chart with the profit and revenue over a requested year
+- get a list of expired products.
+
+Before running the program, make sure you have installed the required modules. 
+- python -m pip install rich if you don't have rich
+- python -m pip install matplotlib
+
+Head over to the superpy directory.
+
+Use "python main.py followed by a command below " for Windows or "python3 main.py followed by a command below" for Mac users
+
+Buying a product (add to the inventory): "buy --product --price --expiration"
+Example: buy --product apple --price 2 --expiration 2023-11-10
+- the product name should be 1 word if needed add a - between names with more then 1 word. 
+- the price should be a number and can have a decimal.
+--expiration should contain an expiration date for the product YYYY-MM-DD
+The tool will add the current date and an ID number to the product.
+
+Selling a product: "sell --product --price"
+Example: "sell --product apple --price 3.0"
+The same rules apply: product should be 1 word, price must be a number.
+The tool will add the current selling date, bought_ID number and new ID number to the product
+
+Advancing the time: "--advancetime"
+Example: "--advancetime 2"
+A date has been added to a text file current_date.txt.
+The current date can be advanced by any number of days by using this command.
+When the date is advanced, all the products that expired in the meantime are removed.
+
+Checking the inventory: "inventory"
+Using the inventory command, one can check the inventory. 
+examples:
+- "inventory --now" a list of the current inventory.
+- "inventory --yesterday" a list of the inventory yesterday (at the end of the day).
+- "inventory --date 2023-03-22" a list of the inventory at a chosen date.(YYYY-MM-DD)
+
+Checking the revenue: "revenue"
+One can check the revenue for today, yesterday or a chosen day or month.
+examples:
+- "revenue --today" gives today's revenue
+- "revenue --yesterday" gives yesterday's revenue
+- "revenue --date 2022-11" or 'revenue --date 2023-03-22" gives the revenue for the chosen month or day.(YYYY-MM or YYYY-MM-DD)
+
+Checking the profit: "profit"
+One can check the profit for today, yesterday or a chosen day or month.
+examples:
+- "profit --today" gives today's profit
+- "profit --yesterday" gives yesterday's profit
+- "profit --date 2023-04" or "profit --date 2023-03-22" gives the profit in a chosen month or day.
+
+A chart of revenue and profit over a year: "--chart"
+Example: "--chart 2023"
+The chart command gives a chart showing the revenue and profit per month over the chosen year.
+
+Checking the expired products: "--expired"
+The "--expired" command gives a list of all the expired products.
