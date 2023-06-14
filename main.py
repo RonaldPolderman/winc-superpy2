@@ -1,6 +1,7 @@
 import argparse
 from functions import (
     advance_time,
+    set_date,
     inventory_check,
     def_buy_product,
     def_sell_product,
@@ -33,6 +34,11 @@ parser.add_argument(
     "--advancetime", metavar="", help="Add a number of days to advance the current date"
 )
 
+# set date
+parser.add_argument(
+    "--setdate", type=str, metavar="", help="Manually set the current date (YYYY-MM-DD)"
+)
+
 # check the inventory
 inventory = subparser.add_parser(
     "inventory",
@@ -41,7 +47,7 @@ inventory = subparser.add_parser(
 inventory.add_argument("--now", help="Inventory at this moment", action="store_true")
 inventory.add_argument("--yesterday", help="Inventory yesterday", action="store_true")
 inventory.add_argument(
-    "--date", type=str, metavar="", help="Inventory on a date to be chosen (YYYY-MM-DD"
+    "--date", type=str, metavar="", help="Inventory on a date to be chosen (YYYY-MM-DD)"
 )
 
 # subparser sell a product
@@ -91,6 +97,8 @@ parser.add_argument(
 args = parser.parse_args()
 
 # functions based on arguments in commandline
+if args.setdate:
+    set_date(args.setdate)
 if args.advancetime:
     try:
         advance_time(args.advancetime)

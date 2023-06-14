@@ -75,10 +75,13 @@ def def_buy_product(product_name, buy_price, expiration_date):
         csv_reader = csv.reader(bought_file)
         id = len(list(csv_reader)) + 1
 
+    with open("current_date.txt", "r") as date_file:
+        current_date = date_file.read().strip()
+
     with open("bought.csv", "a", newline="") as bought_file:
         csv_writer = csv.writer(bought_file)
         csv_writer.writerow(
-            [id, product_name, date.today(), buy_price, expiration_date]
+            [id, product_name, current_date, buy_price, expiration_date]
         )
 
     print(f"One {product_name} has been added to the inventory.")
@@ -180,6 +183,11 @@ def inventory_check(requested_date):
 
         make_table(f"Inventory on {curr_date}", inventory_list)
 
+        with open("inventory.csv", "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Product Name", "Count", "Buy Price", "Expiration Date"])
+            writer.writerows(inventory_list)
+
     if requested_date == "now":
         curr_date += Date.today()
         day()
@@ -261,6 +269,11 @@ def expired_products():
     console = Console()
     console.print(table)
 
+    with open("expired.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Product Name", "Money Wasted", "Date Expired"])
+        writer.writerows(expired_product_list)
+
 
 # This function takes in a list of sales, where each sale is a dictionary containing the product name, quantity, and price.
 # It calculates the total revenue from all the sales in the list and returns the total revenue.
@@ -281,6 +294,11 @@ def def_revenue(requested_date):
                     revenue += float(sold_item.sold_price)
 
         print(f"The revenue in {requested_date_obj.strftime('%B %Y')} was: {revenue}")
+        with open("revenue.csv", "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(
+                [f"The revenue in {requested_date_obj.strftime('%B %Y')} was:", revenue]
+            )
 
     def day():
         revenue = 0
@@ -296,6 +314,14 @@ def def_revenue(requested_date):
         print(
             f"The revenue on {requested_date_obj.strftime('%Y-%m-%d')} was: {revenue}"
         )
+        with open("revenue.csv", "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(
+                [
+                    f"The revenue on {requested_date_obj.strftime('%Y-%m-%d')} was:",
+                    revenue,
+                ]
+            )
 
     if requested_date == "today":
         curr_date += Date.today()
@@ -352,6 +378,14 @@ def def_profit(requested_date):
         print(
             f"The total profit in {requested_date_obj.strftime('%B %Y')} was: {profit}"
         )
+        with open("profit.csv", "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(
+                [
+                    f"The profit on {requested_date_obj.strftime('%B %Y')} was:",
+                    profit,
+                ]
+            )
 
     def day():
         profit = 0
@@ -376,6 +410,14 @@ def def_profit(requested_date):
             print(
                 f"The total profit on {requested_date_obj.strftime('%Y-%m-%d')} was: {profit}"
             )
+            with open("profit.csv", "w", newline="") as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(
+                    [
+                        f"The profit on {requested_date_obj.strftime('%Y-%m-%d')} was:",
+                        profit,
+                    ]
+                )
 
     if requested_date == "today":
         curr_date += Date.today()
@@ -461,3 +503,36 @@ def def_chart(year):
     plt.bar(xpos + 0.2, profit, width=0.4, label="Profit")
     plt.legend()
     plt.show()
+
+
+def set_date(date_str):
+    try:
+        date = datetime.strptime(date_str, "%Y-%m-%d")
+        with open("current_date.txt", "w") as file:
+            file.write(date_str)
+        print(f"The current date has been set to {date_str}")
+    except ValueError:
+        print("Invalid date format. Please use the format YYYY-MM-DD")
+
+    new_date = datetime.strptime(Date.today(), "%Y-%m-%d")
+    with open("bought.csv", "r") as bought_file, open("sold.csv", "r") as sold_file:
+        bought_list = list(map(BoughtProduct, list(csv.reader(bought_file))))
+        sold_list = list(map(SoldProduct, list(csv.reader(sold_file))))
+        bought_list_copy = bought_list.copy()
+        for bought_item in bought_list:
+            for sold_item in sold_list:
+                if bought_item.id == sold_item.bought_id:
+                    bought_list_copy.remove(bought_item)
+
+        expired_products = []
+        for bought_item in bought_list_copy:
+            if datetime.strptime(bought_item.expiration_date, "%Y-%m-%d") < new_date:
+                expired_products.append(bought_item)
+
+        with open("sold.csv", "a", newline="") as sold_file:
+            csv_writer = csv.writer(sold_file)
+            for expired_item in expired_products:
+                id = (len(sold_list)) + 1
+                csv_writer.writerow([id, expired_item.id, Date.today(), 0.0])
+        if expired_products != []:
+            print(f"In the meantime, {len(expired_products)} product(s) expired.")

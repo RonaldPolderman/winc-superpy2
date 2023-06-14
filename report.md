@@ -1,6 +1,6 @@
 SuperPy Report.
 
-The 3rd commit for another very challenging assigment, I had a hard time understanding what exactly was asked in the assignment and then figuring out how the required modules like date, argparse and csv files worked.
+The 4th commit for another very challenging assigment, I had a hard time understanding what exactly was asked in the assignment and then figuring out how the required modules like date, argparse and csv files worked.
 After a lot of Google reading and going through all the docs at docs.python i had a minor grasp of understanding what to do.
 
 Added the report.md this time since i did not add one in the 1st commit.
@@ -8,6 +8,9 @@ Added comments.
 Added a dynamic date instead of a hardcoded date to the current_date.txt
 Fixed a small bug in advancing time. It always printed "Please enter a valid number of days, example: 3".
 Fixed another bug in advance date. Changed the writing of current date to the current_date.txt inside the def_buy_product so it only writes the date once instead of looping over it every time you advance time.
+Fixed an issue when buying a product after advancing time it still had the date today instead of the advanced time.
+Added a --setdate function as requested (even though i don't really see that in the exersize as suggested the way i read it it says write the date of today and advance from there which is way more logic in the light of this exersize in my opinion)
+Added csv files for inventory, revenue,profit and expired products so that the data requested is not only printed in the terminal but also written on a csv file.
 
 Here are the 3 notable elements.
 

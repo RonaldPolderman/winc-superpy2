@@ -35,6 +35,10 @@ A date has been added to a text file current_date.txt.
 The current date can be advanced by any number of days by using this command.
 When the date is advanced, all the products that expired in the meantime are removed.
 
+Setting a date: "--setdate"
+Example: "--setdate 2023-12-12"
+Instead of using the advance time function you can set a date manually.
+
 Checking the inventory: "inventory"
 Using the inventory command, one can check the inventory. 
 examples:
