@@ -10,7 +10,7 @@ Fixed a small bug in advancing time. It always printed "Please enter a valid num
 Fixed another bug in advance date. Changed the writing of current date to the current_date.txt inside the def_buy_product so it only writes the date once instead of looping over it every time you advance time.
 Fixed an issue when buying a product after advancing time it still had the date today instead of the advanced time.
 Added a --setdate function as requested (even though i don't really see that in the exersize as suggested the way i read it it says write the date of today and advance from there which is way more logic in the light of this exersize in my opinion)
-Added csv files for inventory, revenue,profit and expired products so that the data requested is not only printed in the terminal but also written on a csv file.
+Added csv files for inventory, revenue, profit and expired products so that the data requested is not only printed in the terminal but also written on a csv file.
 
 Here are the 3 notable elements.
 
